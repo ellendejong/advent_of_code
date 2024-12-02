@@ -70,3 +70,30 @@ class TestGetDistanceTwoLists:
         with pytest.raises(ValueError) as value_error:
             parse_location_ids.get_distance_two_lists(lst_left=left, lst_right=right)
         assert f"Unequal length of lists, {len(left)} vs {len(right)}" == str(value_error.value)
+
+
+class TestGetSimilarityScore:
+    @pytest.mark.parametrize(
+        "left,right,expected_score",
+        [
+            # Test single value
+            ([1], [1], 1),
+            # Test single negative value
+            ([-1], [-1], -1),
+            # Test single value, multiplied
+            ([1], [1, 1], 2),
+            # Test single negative value, multiplied
+            ([-1], [-1, -1], -2),
+            # Test single value, no appearance
+            ([1], [2], 0),
+            # Test single value, no appearance (empty counter)
+            ([1], [], 0),
+            # Test multi value, multiplied both
+            ([1, 2], [1, 1, 2], 4),
+            # Test multi value, multiplied, single appearance
+            ([1, 2], [1, 1], 2),
+        ],
+    )
+    def test_ok(self, left, right, expected_score):
+        result = parse_location_ids.get_similarity_score(left, right)
+        assert result == expected_score

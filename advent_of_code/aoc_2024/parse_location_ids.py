@@ -1,4 +1,5 @@
 import argparse
+from collections import Counter
 from errno import ENOENT as errno_ENOENT
 from os import strerror as os_strerror
 import pandas
@@ -95,11 +96,32 @@ def get_distance_two_lists(lst_left, lst_right):
     return sum(distances)
 
 
+def get_similarity_score(lst_left, lst_right):
+    """
+    Get similarity score by using multiplying the numbers in left list with appearance counter of right list.
+
+    Args:
+        lst_left (list): list with integers
+        lst_right (list): list with integers
+
+    Returns:
+        int: Sum of multiplied numbers of lst_left depending on appearance in lst_right.
+    """
+    appearances = Counter(lst_right)
+    multiplied = []
+    for i in lst_left:
+        multiplied.append(i * appearances.get(i, 0))
+    return sum(multiplied)
+
+
 def main():
     arguments = parse_arguments_and_check(args_in=argv[1:])
     lst_left, lst_right = read_data_and_get_columns_as_list(arguments.input_file)
     summed_distance = get_distance_two_lists(lst_left, lst_right)
     print(f"The summed distance is: {summed_distance}")
+
+    similarity = get_similarity_score(lst_left, lst_right)
+    print(f"The summed similarity is: {similarity}")
 
 
 if __name__ == "__main__":
