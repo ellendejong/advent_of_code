@@ -1,4 +1,6 @@
 import argparse
+from errno import ENOENT as errno_ENOENT
+from os import strerror as os_strerror
 import pandas
 from pathlib import Path
 from sys import argv
