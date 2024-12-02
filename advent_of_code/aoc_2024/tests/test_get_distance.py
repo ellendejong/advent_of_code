@@ -1,6 +1,6 @@
 import pytest
 
-from advent_of_code.aoc_2024 import get_distance
+from advent_of_code.aoc_2024 import parse_location_ids
 
 
 class TestReadDataAndGetColumnsAsList():
@@ -10,7 +10,7 @@ class TestReadDataAndGetColumnsAsList():
         ("values_int_str.txt", 1),
     ])
     def test_input_ok(self, filename, exp_length, datadir):
-        left, right = get_distance.read_data_and_get_columns_as_list(f"{datadir}/{filename}")
+        left, right = parse_location_ids.read_data_and_get_columns_as_list(f"{datadir}/{filename}")
         assert len(left) == exp_length
         assert len(right) == exp_length
 
@@ -20,7 +20,7 @@ class TestReadDataAndGetColumnsAsList():
     ])
     def test_input_error(self, filename, exp_col_index, datadir):
         with pytest.raises(ValueError) as value_error:
-            get_distance.read_data_and_get_columns_as_list(f"{datadir}/{filename}")
+            parse_location_ids.read_data_and_get_columns_as_list(f"{datadir}/{filename}")
         assert f"Integer column has NA values in column {exp_col_index}" == str(value_error.value)
 
 
@@ -46,7 +46,7 @@ class TestGetDistanceTwoLists():
         ([2, 1], [-2, -1], 6)
     ])
     def test_get_distance_two_lists(self, left, right, exp_sum_distance):
-        result = get_distance.get_distance_two_lists(lst_left=left, lst_right=right)
+        result = parse_location_ids.get_distance_two_lists(lst_left=left, lst_right=right)
         assert result == exp_sum_distance
 
     @pytest.mark.parametrize("left,right", [
@@ -56,5 +56,5 @@ class TestGetDistanceTwoLists():
     ])
     def test_error_input(self, left, right):
         with pytest.raises(ValueError) as value_error:
-            get_distance.get_distance_two_lists(lst_left=left, lst_right=right)
+            parse_location_ids.get_distance_two_lists(lst_left=left, lst_right=right)
         assert f"Unequal length of lists, {len(left)} vs {len(right)}" == str(value_error.value)
