@@ -41,9 +41,7 @@ def parse_arguments_and_check(args_in):
     Returns:
         Namespace: Convert argument strings to objects and assign them as attributes of the namespace.
     """
-    parser = argparse.ArgumentParser(
-        description="Check kinship output based on ped file."
-    )
+    parser = argparse.ArgumentParser(description="Parse location IDs as instructed by puzzles of Advent Of Code 2024.")
     parser.add_argument(
         "input_file",
         type=validate_non_empty_existing_path,
