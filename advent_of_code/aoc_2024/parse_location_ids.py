@@ -90,13 +90,8 @@ def get_distance_two_lists(lst_left, lst_right):
         int: Sum of retrieved distances of pairwise comparison in list.
     """
     if len(lst_left) != len(lst_right):
-        raise ValueError(
-            f"Unequal length of lists, {len(lst_left)} vs {len(lst_right)}"
-        )
-    distances = [
-        abs(int_left - int_right)
-        for int_left, int_right in zip(sorted(lst_left), sorted(lst_right))
-    ]
+        raise ValueError(f"Unequal length of lists, {len(lst_left)} vs {len(lst_right)}")
+    distances = [abs(int_left - int_right) for int_left, int_right in zip(sorted(lst_left), sorted(lst_right))]
     return sum(distances)
 
 
